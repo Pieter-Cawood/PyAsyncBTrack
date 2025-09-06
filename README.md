@@ -1,5 +1,7 @@
 # PyAsyncBTrack
 
+[![Publish to PyPI](https://github.com/Pieter-Cawood/PyAsyncBTrack/actions/workflows/release.yml/badge.svg)](https://github.com/Pieter-Cawood/PyAsyncBTrack/actions/workflows/release.yml)
+
 Asynchronous Backtracking (ABT) — implemented as a fast, centralized solver for **Distributed Constraint Satisfaction Problems (DCSPs)**.  
 It brings together MRV/LCV heuristics, conflict-directed backjumping with nogoods, optional AC-3 pre-pruning, restarts with domain reshuffling, and multi-solution enumeration — all with clean, typed Python APIs.
 
@@ -27,9 +29,9 @@ It brings together MRV/LCV heuristics, conflict-directed backjumping with nogood
 
 ---
 
-## Quickstart (10 seconds)
+## N Queens Example 
 
-```N-Queens with a 2D domain (rows, cols, diagonals)
+N-Queens with a 2D domain (rows, cols, diagonals)
 
 Below is a compact demo that models **N-Queens** where each queen’s domain is the full grid `(row, col)`, and pairwise constraints rule out shared rows, columns, and diagonals.
 
