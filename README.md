@@ -1,7 +1,6 @@
 # PyAsyncBTrack
 
 [![CI](https://github.com/Pieter-Cawood/PyAsyncBTrack/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Pieter-Cawood/PyAsyncBTrack/actions/workflows/ci.yml)
-[![Release](https://github.com/Pieter-Cawood/PyAsyncBTrack/actions/workflows/release.yml/badge.svg)](https://github.com/Pieter-Cawood/PyAsyncBTrack/actions/workflows/release.yml)
 [![PyPI version](https://img.shields.io/pypi/v/pyasyncbtrack.svg)](https://pypi.org/project/pyasyncbtrack/)
 [![Python versions](https://img.shields.io/pypi/pyversions/pyasyncbtrack.svg)](https://pypi.org/project/pyasyncbtrack/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
