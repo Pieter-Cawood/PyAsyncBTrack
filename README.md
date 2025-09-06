@@ -1,4 +1,4 @@
-# pypyasyncbtrack
+# PyAsyncBTrack
 
 Asynchronous Backtracking (ABT) — implemented as a fast, centralized solver for **Distributed Constraint Satisfaction Problems (DCSPs)**.  
 It brings together MRV/LCV heuristics, conflict-directed backjumping with nogoods, optional AC-3 pre-pruning, restarts with domain reshuffling, and multi-solution enumeration — all with clean, typed Python APIs.
