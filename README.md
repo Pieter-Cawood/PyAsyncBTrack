@@ -29,26 +29,86 @@ It brings together MRV/LCV heuristics, conflict-directed backjumping with nogood
 
 ## Quickstart (10 seconds)
 
-```python
+```N-Queens with a 2D domain (rows, cols, diagonals)
+
+Below is a compact demo that models **N-Queens** where each queen’s domain is the full grid `(row, col)`, and pairwise constraints rule out shared rows, columns, and diagonals.
+
+```
+from __future__ import annotations
+import argparse
+import random
+from typing import List, Dict, Optional, Tuple
+
 from pyasyncbtrack import DCSPProblem, solve, Verbosity
-from pyasyncbtrack.constraints import not_equal
+from pyasyncbtrack.types import BinaryConstraint
 
-# Variables & domains
-variables = ["X", "Y", "Z"]
-domains = {v: [1, 2, 3] for v in variables}
+# ---------------------------------------------------------------------------
+# Constraints (2D domain)
+# ---------------------------------------------------------------------------
+def pred(u_var: str, u_val: Tuple[int, int], v_var: str, v_val: Tuple[int, int]) -> bool:
+    if (not isinstance(u_val, tuple) or len(u_val) != 2 or
+        not isinstance(v_val, tuple) or len(v_val) != 2):
+        return False
+    r1, c1 = u_val
+    r2, c2 = v_val
+    return (r1 != r2) and (c1 != c2) and (abs(r1 - r2) != abs(c1 - c2))
 
-# Pairwise X != Y, Y != Z, X != Z
-constraints = [
-    not_equal("X", "Y"),
-    not_equal("Y", "Z"),
-    not_equal("X", "Z"),
-]
+def rows_cols_diags_constraint(u: str, v: str) -> BinaryConstraint:
+    """
+    Enforce: different rows, different columns, not on a diagonal.
 
-problem = DCSPProblem(variables, domains, constraints)
+    Values are tuples (row, col).
+    """
+    return BinaryConstraint(u, v, pred)
 
-solution = solve(problem, verbosity=Verbosity.LOG, seed=7)
-print(solution)
-# e.g. {'X': 1, 'Y': 2, 'Z': 3}
+# ---------------------------------------------------------------------------
+# Main demo
+# ---------------------------------------------------------------------------
+
+def main(N: int = 8, timeout_s: Optional[float] = 10.0) -> None:
+    # Variables (queens)
+    variables = [f"Q{i}" for i in range(N)]
+
+    # 2D domain: every queen can pick any (row, col)
+    all_cells: List[Tuple[int, int]] = [(r, c) for r in range(N) for c in range(N)]
+    domains: Dict[str, List[Tuple[int, int]]] = {q: list(all_cells) for q in variables}
+
+    # Pairwise constraints for all pairs (different rows, cols, diagonals)
+    constraints: List[BinaryConstraint] = []
+    for i in range(N):
+        for j in range(i + 1, N):
+            constraints.append(rows_cols_diags_constraint(variables[i], variables[j]))
+
+    rng = random.Random(42)  # optional for reproducibility
+
+    # Build and solve
+    problem = DCSPProblem(variables, domains, constraints)
+    sol = solve(
+        problem,
+        timeout_s=timeout_s,
+        domain_reshuffling=True,
+        rng=rng,
+        reshuffle_iterations=150,   # single knob; <=0 means no per-run cap
+        prefilter_domain=True,      # enable AC-3 pruning before each run
+        verbosity=Verbosity.TQDM    # tqdm desc-only (if available), or quiet
+    )
+
+    if sol is None:
+        print("No solution (or timeout).")
+        return
+
+    # Pretty-print a board
+    grid = [["." for _ in range(N)] for _ in range(N)]
+    for q, (r, c) in sol.items():
+        grid[int(r)][int(c)] = "Q"
+    print("\n".join(" ".join(row) for row in grid))
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="N-Queens (2D-domain) with PyAsyncBTrack (ABT)")
+    parser.add_argument("-n", "--size", type=int, default=8, help="Board size N")
+    parser.add_argument("--timeout", type=float, default=120.0, help="Timeout seconds (<=0 for unlimited)")
+    args = parser.parse_args()
+    main(N=args.size, timeout_s=args.timeout)
 ```
 
 ---
