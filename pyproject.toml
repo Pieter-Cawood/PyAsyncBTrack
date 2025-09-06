@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyasyncbtrack"
+version = "0.1.0"
+description = "Asynchronous Backtracking (ABT) for Distributed CSPs"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.10"
+authors = [{ name = "Pieter Cawood" }]
+license = { file = "LICENSE" }
+
+# Add discoverability terms here (free-form)
+keywords = [
+  "DCSP", "Distributed Constraint Satisfaction", "Asynchronous Backtracking",
+  "ABT", "CSP", "Constraint Programming", "Arc Consistency", "AC-3",
+  "Nogoods", "Backjumping", "Heuristics", "MRV", "LCV"
+]
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  # "Programming Language :: Python :: 3.13",  # uncomment if tested
+
+  "Operating System :: OS Independent",
+  "Environment :: Console",
+
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+
+  # Include this ONLY if you ship src/dcsp_abt/py.typed
+  # "Typing :: Typed",
+]
+
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/Pieter-Cawood/PyAsyncBTrack"
+Source = "https://github.com/Pieter-Cawood/PyAsyncBTrack"
+Issues = "https://github.com/Pieter-Cawood/PyAsyncBTrack/issues"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-q"

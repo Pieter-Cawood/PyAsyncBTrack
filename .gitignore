@@ -1,0 +1,35 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Packaging artifacts
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Test/coverage caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Type-checker / tooling caches
+.mypy_cache/
+.pyright/
+.pyre/
+.ruff_cache/
+
+# Editors/OS
+.vscode/
+.idea/
+.DS_Store
+
+# Optional: local dotenv files (often contain secrets)
+.env
+.env.*
