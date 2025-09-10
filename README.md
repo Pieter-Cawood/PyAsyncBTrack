@@ -39,7 +39,7 @@ N-Queens with a 2D domain (rows, cols, diagonals)
 
 Below is a compact demo that models **N-Queens** where each queen’s domain is the full grid `(row, col)`, and pairwise constraints rule out shared rows, columns, and diagonals.
 
-```
+```python
 from __future__ import annotations
 import argparse
 import random
